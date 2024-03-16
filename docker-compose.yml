@@ -1,0 +1,13 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:5173"
+    volumes:
+      - .:/usr/src/app
+      - /mnt/nas/share:/mnt/nas/share
+    environment:
+      - NODE_ENV=development
