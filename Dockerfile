@@ -1,10 +1,15 @@
-FROM node:18.12 as build
+FROM node:18.12
+
+RUN npm install -g http-server
 
 WORKDIR /work
 
 COPY package*.json ./
 RUN npm install
 
-EXPOSE 5173
+COPY . .
 
-CMD ["npm", "dev"]
+RUN npm run build
+
+EXPOSE 8080
+CMD [ "http-server", "dist" ]
