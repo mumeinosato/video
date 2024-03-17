@@ -9,6 +9,8 @@ RUN npm install
 
 COPY . .
 
+ENV API_URL 192.168.0.19:3000
+
 RUN npm run build
 
 FROM nginx:stable-alpine as production-stage

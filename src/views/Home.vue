@@ -1,9 +1,12 @@
 <template>
-  <div class="thumbnail-list">
-    <h2>Thumbnail List</h2>
+  <div class="main">
+    <h2>一覧</h2><br>
     <div class="thumbnails">
       <div v-for="thumbnail in thumbnails" :key="thumbnail.folder" class="thumbnail">
-        <img :src="thumbnail.thumbnailUrl" :alt="thumbnail.folder">
+        <a>
+          <img :src="thumbnail.thumbnailUrl" :alt="thumbnail.folder" width="342">
+        </a>
+        <p class="title">{{ thumbnail.folder }}</p>
       </div>
     </div>
   </div>
@@ -11,6 +14,7 @@
 
 <script>
 import axios from 'axios';
+import { getApiUrl } from '../assets/script/api_url';
 
 export default {
   data() {
@@ -24,7 +28,8 @@ export default {
   methods: {
     async fetchThumbnails() {
       try {
-        const response = await axios.get('http://localhost:3000/thumbnails');
+        const aptUrl = getApiUrl();
+        const response = await axios.get(`http://${aptUrl}/thumbnails`);
         this.thumbnails = response.data;
       } catch (error) {
         console.error('サムネイルの取得に失敗しました', error);
@@ -35,17 +40,23 @@ export default {
 </script>
 
 <style>
-.thumbnail-list {
-  text-align: center;
-}
 
 .thumbnails {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
 }
 
 .thumbnail {
-  margin: 10px;
+  margin-right: 20px;
+}
+
+.main{
+  margin: 20px;
+  text-align: center;
+}
+
+.title {
+  font-size: 12px;
+  text-align: left;
 }
 </style>
